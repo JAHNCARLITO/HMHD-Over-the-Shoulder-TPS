@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cwm00lljvoax3"]
+
+[ext_resource type="Script" uid="uid://cr737dd3eu428" path="res://Scripts/enemy.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://b8ckm8shd4e3i" path="res://Assets/horse/low_poly_horse.glb" id="2_horse"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_enemy"]
+size = Vector3(0.9, 2.522925, 2.9339843)
+
+[node name="Enemy" type="CharacterBody3D" unique_id=1603186840]
+script = ExtResource("1_script")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=143742522]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6352947, 1.2134364, 0.44073546)
+shape = SubResource("BoxShape3D_enemy")
+
+[node name="Model" parent="." unique_id=785448476 instance=ExtResource("2_horse")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, 0, 0)

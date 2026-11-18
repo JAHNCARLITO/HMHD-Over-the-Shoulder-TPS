@@ -1,13 +1,19 @@
 [gd_scene format=3 uid="uid://8vgoni2dv7mc"]
 
+[ext_resource type="Texture2D" uid="uid://jipciuq4gyvv" path="res://Assets/sky/sky.png" id="1_k7acu"]
 [ext_resource type="Texture2D" uid="uid://86e8td7hug8b" path="res://kenney_prototype-textures/PNG/Dark/texture_01.png" id="1_tlwt5"]
-[ext_resource type="Script" uid="uid://dyhdm2p1il0l7" path="res://player.gd" id="2_aqk2v"]
-[ext_resource type="Script" uid="uid://chpm2dafgu7iw" path="res://headscript.gd" id="3_036b0"]
+[ext_resource type="Script" uid="uid://bjsdwdwvw8ei7" path="res://Scripts/player.gd" id="2_aqk2v"]
+[ext_resource type="PackedScene" uid="uid://d14smayuu3cch" path="res://Assets/gun/daitaku_helios_chibi.glb" id="3_5ukr8"]
+[ext_resource type="Script" uid="uid://bunnmsvvjmmyd" path="res://Scripts/headscript.gd" id="3_036b0"]
+[ext_resource type="PackedScene" uid="uid://cwm00lljvoax3" path="res://Scenes/enemy.tscn" id="4_enemy"]
+[ext_resource type="PackedScene" uid="uid://dl44o4w0l5225" path="res://Assets/drip/f1f2815c-bcad-4a0c-baf6-c241841e6771.glb" id="5_o06y3"]
+[ext_resource type="Script" uid="uid://dr7cqrsexb3ki" path="res://Scripts/crosshair.gd" id="5_xhair"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uuhwg"]
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8tj4p"]
+panorama = ExtResource("1_k7acu")
 
 [sub_resource type="Sky" id="Sky_r0n00"]
-sky_material = SubResource("ProceduralSkyMaterial_uuhwg")
+sky_material = SubResource("PanoramaSkyMaterial_8tj4p")
 
 [sub_resource type="Environment" id="Environment_u6ggd"]
 background_mode = 2
@@ -34,20 +40,6 @@ albedo_color = Color(0.21176471, 1, 1, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_u6ggd"]
 material = SubResource("StandardMaterial3D_r0n00")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ni42b"]
-albedo_color = Color(0.21568628, 0.07058824, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_uuhwg"]
-material = SubResource("StandardMaterial3D_ni42b")
-size = Vector3(0.16113281, 0.32421875, 1.0880127)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yo01s"]
-albedo_color = Color(0.5370987, 0.32581177, 0.21796738, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_tlwt5"]
-material = SubResource("StandardMaterial3D_yo01s")
-size = Vector3(0.16113281, 0.32421875, 0.5790405)
 
 [sub_resource type="Animation" id="Animation_tlwt5"]
 length = 0.001
@@ -111,6 +103,41 @@ operation = 2
 size = Vector3(29, 3.9259765, 29)
 material = SubResource("StandardMaterial3D_pkg7o")
 
+[node name="CoverLeft" type="CSGBox3D" parent="CSGCombiner3D" unique_id=2100000001]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.75, -2.5)
+size = Vector3(5, 1.2, 0.6)
+material = SubResource("StandardMaterial3D_dwbse")
+
+[node name="CoverRight" type="CSGBox3D" parent="CSGCombiner3D" unique_id=2100000002]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.75, -2.5)
+size = Vector3(5, 1.2, 0.6)
+material = SubResource("StandardMaterial3D_dwbse")
+
+[node name="Pillar" type="CSGBox3D" parent="CSGCombiner3D" unique_id=2100000003]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, -5)
+size = Vector3(1.5, 4, 1.5)
+material = SubResource("StandardMaterial3D_dwbse")
+
+[node name="WallLeft" type="CSGBox3D" parent="CSGCombiner3D" unique_id=2100000004]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 1.65, -9)
+size = Vector3(1, 3, 6)
+material = SubResource("StandardMaterial3D_dwbse")
+
+[node name="WallRight" type="CSGBox3D" parent="CSGCombiner3D" unique_id=2100000005]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1.65, -9)
+size = Vector3(1, 3, 6)
+material = SubResource("StandardMaterial3D_dwbse")
+
+[node name="BackBlock" type="CSGBox3D" parent="CSGCombiner3D" unique_id=2100000006]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.65, 5)
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_dwbse")
+
+[node name="BackWall" type="CSGBox3D" parent="CSGCombiner3D" unique_id=2100000007]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1.65, 7)
+size = Vector3(6, 3, 1)
+material = SubResource("StandardMaterial3D_dwbse")
+
 [node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=1810993194]
 script = ExtResource("2_aqk2v")
 
@@ -119,36 +146,50 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 shape = SubResource("CapsuleShape3D_r0n00")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D" unique_id=309089584]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5493112, 0)
 mesh = SubResource("CapsuleMesh_u6ggd")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="CharacterBody3D" unique_id=1110383748]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 1.6659127, -0.24064755)
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 2.015224, -0.24064755)
 mesh = SubResource("SphereMesh_u6ggd")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="CharacterBody3D" unique_id=1767420631]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 1.1688285, 0.57456565)
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 1.5181396, 0.57456565)
 mesh = SubResource("CapsuleMesh_u6ggd")
 
-[node name="Machina" type="MeshInstance3D" parent="CharacterBody3D" unique_id=2057968430]
+[node name="Machina" type="Node3D" parent="CharacterBody3D" unique_id=288704398]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6432498, 1.429291, -0.14244652)
-mesh = SubResource("BoxMesh_uuhwg")
-
-[node name="Mesh" type="MeshInstance3D" parent="CharacterBody3D/Machina" unique_id=1837973383]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -0.009449244, -0.18299997, 0.28111458)
-mesh = SubResource("BoxMesh_tlwt5")
 
 [node name="pos" type="Node3D" parent="CharacterBody3D/Machina" unique_id=1068791984]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7781931)
 
+[node name="Helios" parent="CharacterBody3D/Machina" unique_id=736041571 instance=ExtResource("3_5ukr8")]
+transform = Transform3D(-0.99862707, -0.05235806, -0.0016505942, 0, -0.031509474, 0.99950355, -0.052384093, 0.9981312, 0.031466212, 0, -0.024430394, -0.48877764)
+
 [node name="Head" type="Node3D" parent="CharacterBody3D" unique_id=1101334154]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8493111, 0)
 script = ExtResource("3_036b0")
 
 [node name="Camera3D" type="Camera3D" parent="CharacterBody3D/Head" unique_id=695230024]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0384086, 2.2902322, 1.7097392)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3448864, 0.36008215, 1.7097392)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody3D/Head/Camera3D" unique_id=1769959987]
 libraries/ = SubResource("AnimationLibrary_036b0")
+
+[node name="RShoe" parent="CharacterBody3D" unique_id=1010079233 instance=ExtResource("5_o06y3")]
+transform = Transform3D(-0.6739677, 0, 0.18912295, 0, 0.7, 0, -0.18912295, 0, -0.6739677, 0.38357538, 0.5100617, -0.22710896)
+
+[node name="LShoe" parent="CharacterBody3D" unique_id=1782633903 instance=ExtResource("5_o06y3")]
+transform = Transform3D(-0.6707541, 0, -0.20022243, 0, 0.70000005, 0, 0.20022243, 0, -0.6707541, -0.42272532, 0.5100617, -0.22710896)
+
+[node name="Enemy1" parent="." unique_id=1653528073 instance=ExtResource("4_enemy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.2, -5)
+
+[node name="Enemy2" parent="." unique_id=897387175 instance=ExtResource("4_enemy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.2, -6)
+
+[node name="Enemy3" parent="." unique_id=1532777175 instance=ExtResource("4_enemy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -8)
 
 [node name="Control" type="Control" parent="." unique_id=1272034218]
 layout_mode = 3
@@ -163,6 +204,7 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("5_xhair")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="Control" unique_id=219877774]
 position = Vector2(20, 1)

@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bo72rfnuf33e8"]
+
+[ext_resource type="Script" uid="uid://div8k1ckg57wd" path="res://Scripts/explosion.gd" id="1_script"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_exp"]
+shading_mode = 0
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_exp"]
+material = SubResource("StandardMaterial3D_exp")
+radius = 0.12
+height = 0.24
+
+[node name="Explosion" type="Node3D" unique_id=1636280753]
+script = ExtResource("1_script")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="." unique_id=1292651788]
+emitting = false
+amount = 10
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("SphereMesh_exp")
+direction = Vector3(0, 1, 0)
+spread = 60.0
+gravity = Vector3(0, -3, 0)
+initial_velocity_min = 2.5
+initial_velocity_max = 5.0
+scale_amount_min = 0.5
+scale_amount_max = 1.5
